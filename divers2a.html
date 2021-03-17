@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="vue2.6.12.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Hello Vue.js</title>
+    </head>
+    <body>
+        <div id="app">
+            {{this.waysToContact}}
+        </div>
+        
+    </body>
+        
+        <script>
+           
+          var vm =  new Vue({ 
+                el: '#app',
+                data: {
+                  email: 'bill@ms.com',
+                  phone: '06 07 08 09 10',
+                  waysToContact: 'email : ' + this.email + ' tel : ' + this.phone
+                }
+                
+            })
+        </script>
+    
+</html>

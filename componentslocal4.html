@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="vue2.6.12.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Hello Vue.js</title>
+    </head>
+    <body>
+        <div id="app">
+            <h2>
+                Utilisateurs
+            </h2>
+            <ul>
+                <user-list :data="users"></user-list>
+            </ul>
+        </div>
+    </body>
+        
+        <script>
+            Vue.component('user-list', { //composant enfant
+                template: '<div>\
+                                <ul>\
+                                    <li v-for="user in data">{{ user.username }}</li>\
+                                </ul>\
+                          </div>',
+                props: ['data']
+            })
+
+
+          var vm =  new Vue({ //composant parent
+                el: '#app',
+                data: {
+                    title: 'Lifecycle hooks',
+                    usersURL: 'https://jsonplaceholder.typicode.com/users',
+                    users: [], //au depart intialiser puis executer avec le then
+                },
+                beforeCreate: function() {
+                    console.log('beforeCreate')                    
+                },
+                created: function(){ //created est un lifecycle hook
+                    axios.get(this.usersURL) //req de axios, url à requeter ds data usersURL
+                        .then(function(response){
+                            console.log(vm);
+                            vm.users = response.data;
+                            console.log(vm.users);
+                        })
+                }
+            })
+        </script>
+    
+</html>

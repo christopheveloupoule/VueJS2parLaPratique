@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="vue2.6.12.js"></script>
+        <title>Hello Vue.js</title>
+    </head>
+    <body>
+        <div id="app">
+             <h2>{{ title }}</h2>
+             <form v-on:submit.prevent="addTask">
+                 <input type="text" placeholder="tâche à effectuer" v-model="task">
+                 <button type="submit">ajouter</button>
+             </form>
+
+             <ul>
+                 <li v-for="task in tasks">{{ task.description }}</li>
+             </ul>
+        </div>
+    </body>
+        
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    title: 'A faire',
+                    task: null,
+                    tasks: []
+                },
+                methods: {
+                    addTask: function() {
+                        this.tasks.push({id: Date.now(), description: this.task, done: false });
+                        console.log('tasks', this.tasks);
+                        this.task = null;
+                    }
+                },
+            })
+        </script>
+    
+</html>

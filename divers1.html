@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="vue2.6.12.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Hello Vue.js</title>
+    </head>
+    <body>
+        <div id="app">
+            {{about | shorten}}
+        </div>
+        
+    </body>
+        
+        <script>
+           
+          var vm =  new Vue({ 
+                el: '#app',
+                data: {
+                  about: 'To test most Vue components, they must be mounted to the DOM\
+                   (either virtual or real) in order to fully assert that they are working.\
+                    This is another framework-agnostic concept. As a result, component testing \
+                    frameworks were created to give users the ability to do this in a reliable way\
+                    while also providing Vue-specific conveniences such as integrations for Vuex,\
+                    Vue Router, and other Vue plugins.'
+                },
+                filters: {
+                    shorten: function(value) { //"value",la valeur prise par about(html)
+                        if (value.length < 30) {
+                            return value    
+                        }
+                        return value.slice(0, 30) + '...';
+                    }
+                }
+            })
+        </script>
+    
+</html>

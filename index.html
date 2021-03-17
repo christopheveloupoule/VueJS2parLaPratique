@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="vue2.6.12.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Hello Vue.js</title>
+    </head>
+    <body>
+        <div id="app">
+             <h2>{{ title }}</h2>
+             <form v-on:submit.prevent="addTask">
+                 <input type="text" placeholder="tâche à effectuer" v-model="task">
+                 <button type="submit">ajouter</button>
+             </form>
+
+             <ul>
+                 <li
+                    v-bind:class="{completed: task.done}" 
+                    v-on:click="task.done = !task.done"
+                    v-for="task in tasks">
+                    <span v-if="!task.isInEditMode" >
+                        <i class="fa fa-edit" v-on:click="switchMode(task)"></i> 
+                        {{ task.description }}
+                        <i class="fa fa-trash-o" v-on:click="deleteTask(task)"></i>
+                    </span>
+                    <span v-else>
+                        <i class="fa fa-thumbs-o-up"></i>
+                        <input type="text" v-model="task.description" v-on:keyup.enter="switchMode(task)">
+                    </span>
+                </li>
+             </ul>
+        </div>
+    </body>
+        
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    title: 'A faire',
+                    task: null,
+                    tasks: [],
+                },
+                methods: {
+                    addTask: function() {
+                        this.tasks.push({id: Date.now(), description: this.task, done: false, isInEditMode: false });
+                        this.task = null;
+                    },
+                    switchMode: function(task) {
+                        task.isInEditMode = !task.isInEditMode;
+                    },
+                    deleteTask: function(task) {
+                        this.tasks = this.tasks.filter(function(t){
+                            return t.id !== task.id
+                        })
+                    }
+                },
+            })
+        </script>
+    
+</html>

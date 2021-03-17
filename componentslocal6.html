@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="vue2.6.12.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Hello Vue.js</title>
+    </head>
+    <body>
+        <div id="app">
+            <my-card>
+                <h3 slot="cardheader">Blog JS</h3>
+                <div slot="cardbody">Visitez meanjs.fr</div>
+            </my-card>
+            <hr>
+            <h2>
+                Utilisateurs
+            </h2>
+            <ul>
+                <user-list v-bind:data="users"></user-list>
+            </ul>
+        </div>
+    </body>
+        
+        <script>
+            Vue.component('my-card', { 
+                template: '<div>\
+                                <slot name="cardheader">titre par défaut</slot>\
+                                <slot name="cardbody">contenu par défaut</slot>\
+                           </div>',
+            });
+
+            Vue.component('user-list', { //composant enfant | composant parent
+                template: '<div>\
+                                <ul><li v-for="user in data"><user-details v-bind:usr="user"></user-details></li></ul>\
+                          </div>',
+                props: ['data']
+            });
+
+            Vue.component('user-details', { //composant enfant
+                template: '<div>id: {{usr.id}} , ville: {{usr.adress.city}}, email: {{usr.email}}</div>',
+                props: ['usr']
+            });
+
+          var vm =  new Vue({ //composant parent
+                el: '#app',
+                data: {
+                    title: 'Lifecycle hooks',
+                    usersURL: 'https://jsonplaceholder.typicode.com/users',
+                    users: [], //au depart intialiser puis executer avec le then
+                },
+                beforeCreate: function() {
+                    console.log('beforeCreate')                    
+                },
+                created: function(){ //created est un lifecycle hook
+                    axios.get(this.usersURL) //req de axios, url à requeter ds data usersURL
+                        .then(function(response){
+                            console.log(vm);
+                            vm.users = response.data;
+                            console.log(vm.users);
+                        })
+                }
+            })
+        </script>
+    
+</html>

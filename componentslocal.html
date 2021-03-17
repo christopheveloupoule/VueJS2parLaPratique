@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="vue2.6.12.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Hello Vue.js</title>
+    </head>
+    <body>
+        <div id="app">
+            <global-cmp></global-cmp>
+            <my-cmp></my-cmp>
+            <my-cmp></my-cmp>
+
+        </div>
+
+        <script>
+            Vue.component('global-cmp', {
+                template: '<div>composant global</div>'
+            });
+
+            var myCmp = { template: '<p>composant local</p>'}
+
+            var vm =  new Vue({
+                el: '#app',
+                components: { 'my-cmp': myCmp}
+                });
+        </script>
+    </body>
+        
+        
+    
+</html>
