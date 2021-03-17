@@ -104,8 +104,6 @@ On télechargera le CDN de lodash (librairie qui comporte beaucoup de fonction u
 Reduire le nombre de requetes asynchrone 
 (solution autre que le CDN, la cde: npm i --save lodash.debounce)
 
-Reprendre lecon36
-
 
 
 
